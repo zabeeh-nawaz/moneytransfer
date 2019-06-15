@@ -89,7 +89,7 @@ public final class MoneyTransferServiceImpl implements MoneyTransferService {
      * com.restful.moneytransfer.model.Account)
      */
     @Override
-    public Long createAccount(final Account account) {
+    public Long createAccount(final Account account) throws Exception {
         LOGGER.trace("MoneyTransferServiceImpl.createAccount has been invoked");
         BankAccount bankAccount = new BankAccount(account.getAccountNumber(),
                 account.getName(), account.getBalance());

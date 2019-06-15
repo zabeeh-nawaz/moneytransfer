@@ -28,8 +28,9 @@ public interface MoneyTransferDao {
      * Method to create BankAccount
      *
      * @param bankAccount
+     * @throws Exception
      */
-    void createAccount(BankAccount bankAccount);
+    void createAccount(BankAccount bankAccount) throws Exception;
 
     /**
      * @return Bank Accounts

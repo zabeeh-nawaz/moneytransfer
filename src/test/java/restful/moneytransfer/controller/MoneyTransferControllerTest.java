@@ -59,9 +59,10 @@ public class MoneyTransferControllerTest {
 
     /**
      * Unit Test to test create Account
+     * @throws Exception
      */
     @Test
-    public void testCreateAccount() {
+    public void testCreateAccount() throws Exception {
         LOGGER.trace("MoneyTransferControllerTest.testCreateAccount is initiated");
         // Arrange
         Account account = new Account(null, "Bob", "123", 20000.00);
@@ -108,10 +109,10 @@ public class MoneyTransferControllerTest {
 
     /**
      * Unit test to test delete Account
-     * @throws MissingResourceException
+     * @throws Exception
      */
     @Test
-    public void testDeleteAccount() throws MissingResourceException {
+    public void testDeleteAccount() throws Exception {
         LOGGER.trace("MoneyTransferControllerTest.testDeleteAccount is initiated");
         //Arrange
         MoneyTransferService service = MoneyTransferServiceImpl.getService();

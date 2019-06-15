@@ -27,8 +27,9 @@ public interface MoneyTransferService {
      * Creates an Account
      * @param account
      * @return
+     * @throws Exception
      */
-    Long createAccount(Account account);
+    Long createAccount(Account account) throws Exception;
 
     /**
      * @return

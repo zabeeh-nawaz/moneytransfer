@@ -37,11 +37,12 @@ public class MoneyTransferController {
     /**
      * @param account to be created
      * @return response entity with status and message
+     * @throws Exception
      */
     @POST
     @Path("account")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createAccount(final Account account) {
+    public Response createAccount(final Account account) throws Exception {
         LOGGER.trace("MoneyTransferController.createAccount has been invoked");
         Long id = service.createAccount(account);
         String result = "created account with id " + id;

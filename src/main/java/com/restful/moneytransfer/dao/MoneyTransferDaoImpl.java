@@ -50,11 +50,17 @@ public class MoneyTransferDaoImpl implements MoneyTransferDao {
      * moneytransfer.entity.BankAccount)
      */
     @Override
-    public void createAccount(final BankAccount bankAccount) {
+    public void createAccount(final BankAccount bankAccount) throws Exception {
         LOGGER.trace("MoneyTransferDaoImpl.createAccount has been invoked");
-        em.getTransaction().begin();
-        em.persist(bankAccount);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(bankAccount);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
+
     }
 
     /*

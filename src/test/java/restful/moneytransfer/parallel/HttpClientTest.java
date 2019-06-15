@@ -32,24 +32,64 @@ import org.junit.Test;
 
 import com.restful.moneytransfer.model.Account;
 
+/**
+ * @author Nawaz
+ *
+ */
 public class HttpClientTest {
 
+    /**
+     *  initialAmount
+     */
     private Double initialAmount = 10000.00;
+
+    /**
+     *  transferAmount
+     */
     private Double transferAmount = 100.00;
+
+    /**
+     *  senderAccountNumber
+     */
     private String senderAccountNumber = "7012345678";
+
+    /**
+     *  receiverAccountNumber
+     */
     private String receiverAccountNumber = "8012345678";
+
+    /**
+     *  senderId
+     */
     private int senderId;
+
+    /**
+     *  receiverId
+     */
     private int receiverId;
 
+    /**
+     *  client
+     */
     private CloseableHttpClient client = HttpClients.createDefault();
 
 
+    /**
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
     @Before
     public void setUpTestData() throws ClientProtocolException, IOException {
         senderId = createAccount("Tom", senderAccountNumber, initialAmount);
         receiverId = createAccount("Angela", receiverAccountNumber, initialAmount);
     }
 
+    /**
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws BrokenBarrierException
+     * @throws IOException
+     */
     @Test
     public void parallelInvocationTest() throws InterruptedException,
     ExecutionException, BrokenBarrierException, IOException {
@@ -102,6 +142,10 @@ public class HttpClientTest {
         assertEquals(receiverAccount.getBalance(), expectedReceiverBalance);
     }
 
+    /**
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
     @After
     public void cleanTestData() throws ClientProtocolException, IOException {
         deleteAccount(senderId);
@@ -110,12 +154,23 @@ public class HttpClientTest {
         client.close();
     }
 
+    /**
+     * @param accountId
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
     private void deleteAccount(int accountId) throws ClientProtocolException, IOException {
         HttpDelete httpDelete = new HttpDelete("http://localhost:8080/account/" + accountId);
         client.execute(httpDelete);
         httpDelete.releaseConnection();
     }
 
+    /**
+     * @param accountId
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
     private Account getAccount(int accountId) throws ClientProtocolException, IOException {
         HttpGet httpGet = new HttpGet("http://localhost:8080/account/" + accountId);
         ResponseHandler<Account> responseHandler = new ResponseHandler<Account>() {
@@ -140,6 +195,14 @@ public class HttpClientTest {
         return account;
     }
 
+    /**
+     * @param name
+     * @param accountNumber
+     * @param balance
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
     private int createAccount(String name, String accountNumber, double balance) throws ClientProtocolException, IOException {
         HttpPost httpPost = new HttpPost("http://localhost:8080/account");
         String json = " { \"name\": \"" + name + "\", \"accountNumber\" : \"" + accountNumber + "\", \"balance\": " + balance + " }";
