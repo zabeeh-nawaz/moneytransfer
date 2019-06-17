@@ -99,6 +99,7 @@ public class HttpClientTest {
                 .newFixedThreadPool(totalThreads);
         final CyclicBarrier gate = new CyclicBarrier(totalThreads + 1);
         Callable<CloseableHttpResponse> task1 = () -> {
+            // Wait until all the threads are ready
             gate.await();
             HttpPost httpPost = new HttpPost("http://localhost:8080/transaction");
             String json = "{ \"amount\" : "
@@ -124,6 +125,7 @@ public class HttpClientTest {
             future = executor.submit(task1);
             futureList.add(future);
         }
+        // Start all the threads
         gate.await();
         futureList.forEach((f) -> {
             try {
