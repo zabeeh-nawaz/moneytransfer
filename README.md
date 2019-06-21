@@ -16,4 +16,4 @@ Running Kotlin Tests
 mvn clean test
 ```
 
-Note: Tests are run against in memory database so no dedicated db setup and db connection setup is required.
+Note: Tests are run against in memory database so no dedicated db setup / db connection setup is required.
